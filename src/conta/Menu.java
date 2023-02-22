@@ -3,6 +3,8 @@ package conta;
 import java.util.Scanner;
 
 import conta.model.Conta;
+import conta.model.ContaCorrente;
+import conta.model.ContaPoupanca;
 import conta.util.Cores;
 
 public class Menu {
@@ -11,28 +13,31 @@ public class Menu {
 		
 		Scanner leia = new Scanner (System.in);
 		
-		Conta c1 = new Conta(1, 123, 1, "Erica Araújo", 30000.0f);
-
-        //visualizamos os dados da conta c1
-        c1.visualizar();
-
-        //alteramos o saldo da conta c1
-        c1.setSaldo(35000.0f);
-
-        //vizualizamos apenas o saldo da conta c1
-        c1.getSaldo();
-        System.out.println(c1.getSaldo());
-
-        c1.sacar(1000.0f);
-
-        System.out.println(c1.getSaldo());
-
-        c1.depositar(10000.0f);
-        c1.visualizar();
+		 // Teste da Classe Conta
+		Conta c1 = new Conta(3, 123, 1, "Erica Araujo da Silva", 500000.0f);
+		c1.visualizar();
+		c1.sacar(2000.0f);
+		c1.visualizar();
+		c1.depositar(30000.0f);
+		c1.visualizar();
+        
+		// Teste da Classe Conta Corrente
+		ContaCorrente cc1 = new ContaCorrente(1, 123, 1, "Vitoria linda ", 0.0f, 1000.0f);
+		cc1.visualizar();
+		cc1.sacar(2500.0f);
+		cc1.visualizar();
+		cc1.depositar(30000.0f);
+		cc1.visualizar();
 		
-	
+        // Teste da Classe Conta Poupança
+		ContaPoupanca cp1 = new ContaPoupanca(2, 123, 2, "Julia maria", 100000.0f,15);
+		cp1.visualizar();
 		
-		
+		int numero, agencia,tipo,anivesario; 
+		String titular; 
+		float saldo,limite;
+			
+        
 		int opcao;
 		
 		
@@ -80,6 +85,38 @@ public class Menu {
 			switch (opcao) {
 			case 1:
 				System.out.println("Criar Conta\n\n");
+				
+				System.out.println("Numero da Agência: ");
+				agencia =leia.nextInt();
+				System.out.println("Nome o Titular: ");
+				leia.skip("\\R?");
+				titular = leia.nextLine();
+				do {
+					System.out.println("Tipo da Conta(1-CC /2-CP: ");
+					tipo =leia.nextInt();
+				}while(tipo < 1 && tipo >2);
+				
+				System.out.println("Saldo da Conta: ");
+				saldo =leia.nextFloat();
+				
+				switch(tipo) {
+				case 1->{
+					System.out.println("Limite da Conta Corrente: ");
+					limite =leia.nextFloat();
+					ContaCorrente cc =new ContaCorrente(0,agencia,tipo,titular,saldo,limite);
+					cc.visualizar();
+				}
+				case 2 ->{
+					System.out.println("Aniversario da Conta Poupança: ");
+					anivesario =leia.nextInt();
+					ContaPoupanca cp =new ContaPoupanca(0,agencia,tipo,titular,saldo,anivesario);
+					cp.visualizar();
+				
+				}
+				}
+				
+				
+				
 
 				break;
 			case 2:
